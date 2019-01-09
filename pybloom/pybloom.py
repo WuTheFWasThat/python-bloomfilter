@@ -224,6 +224,15 @@ both the same capacity and error rate")
         new_bloom.bitarray = new_bloom.bitarray | other.bitarray
         return new_bloom
 
+    def union_from(self, other):
+        """ Calculates the union of the two underlying bitarrays and returns
+        a new bloom filter object."""
+        if self.capacity != other.capacity or \
+            self.error_rate != other.error_rate:
+            raise ValueError("Unioning filters requires both filters to have \
+both the same capacity and error rate")
+        self.bitarray = self.bitarray | other.bitarray
+
     def __or__(self, other):
         return self.union(other)
 
